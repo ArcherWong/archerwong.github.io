@@ -270,6 +270,455 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.wangjiechang.me/2017/05/23/前端模块化方案/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Archer Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494499474462&di=681629fc514267283992fe2be38fe84e&imgtype=0&src=http%3A%2F%2Fpic7.nipic.com%2F20100502%2F297413_011406503065_2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ArcherWong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/23/前端模块化方案/" itemprop="url">前端模块化方案</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-23T15:46:23+08:00">
+                2017-05-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/23/前端模块化方案/" class="leancloud_visitors" data-flag-title="前端模块化方案">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、模块化"><a href="#一、模块化" class="headerlink" title="一、模块化"></a>一、模块化</h1><p>    在没有模块化工具之前，我们想要引入多个js文件，需要在页面中插入一个一个的<code>&lt;script&gt;</code>标签。使用这种方式去管理 JavaScript 项目会有一些问题：</p>
+<p>    1. 如果依赖不存在，或者引入顺序错误，应用程序将无法正常运行。</p>
+<p>    2. 如果依赖被引入但是并没有使用，那样就会存在许多浏览器不得不下载的无用代码。</p>
+<p>    而通过模块化工具，我们只需要声明模块所需的依赖，模块化工具就能够利用这些信息去构建依赖图表，然后使用图表生成一个优化过的，会以正确代码顺序被运行的 bundle。并且没有用到的依赖将不会被 bundle 引入。</p>
+<h1 id="二、模块化方案"><a href="#二、模块化方案" class="headerlink" title="二、模块化方案"></a>二、模块化方案</h1><p>    js语言本身并不支持模块化，同时浏览器中js和服务端nodejs中的js运行环境是不同的，如何实现浏览器中js模块化主流有两种方案：</p>
+<p>    1. requirejs/seajs: 是一种在线“编译”模块的方案，相当于在页面上加载一个CommonJS/AMD模块格式解释器。这样浏览器就认识了define, exports,module这些东西，也就实现了模块化。</p>
+<p>    2. browserify/webpack：是一种预编译模块打包的方案，不需要在浏览器中加载解释器。你在本地直接写JS，不管是AMD/CMD/ES6风格的模块化，它都能认识，并且编译成浏览器认识的JS。</p>
+<center><img src="http://img.blog.csdn.net/20170111164714676?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvd2VpeWFzdG9yeQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt="前端模块化方案"></center>
+
+<h1 id="三、模块化方案的对比"><a href="#三、模块化方案的对比" class="headerlink" title="三、模块化方案的对比"></a>三、模块化方案的对比</h1><table>
+<thead>
+<tr>
+<th>方案</th>
+<th>代码风格</th>
+<th>支持别名</th>
+<th>速度</th>
+<th>内存占用</th>
+<th>整合别的模块</th>
+<th>警告</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WebPack</td>
+<td>+1</td>
+<td>+1</td>
+<td>0</td>
+<td>0</td>
+<td>+1</td>
+<td>-1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Require.js</td>
+<td>-1</td>
+<td>+1</td>
+<td>+1</td>
+<td>+1</td>
+<td>-1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>Browserify</td>
+<td>+1</td>
+<td>-1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<center><a href="http://hackhat.com/p/110/module-loader-webpack-vs-requirejs-vs-browserify/" target="_blank" rel="external">参考</a></center>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.wangjiechang.me/2017/05/19/正则表达式学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Archer Wong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494499474462&di=681629fc514267283992fe2be38fe84e&imgtype=0&src=http%3A%2F%2Fpic7.nipic.com%2F20100502%2F297413_011406503065_2.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ArcherWong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/05/19/正则表达式学习笔记/" itemprop="url">正则表达式学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-19T20:34:33+08:00">
+                2017-05-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/05/19/正则表达式学习笔记/" class="leancloud_visitors" data-flag-title="正则表达式学习笔记">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="一、什么是正则表达式"><a href="#一、什么是正则表达式" class="headerlink" title="一、什么是正则表达式"></a>一、什么是正则表达式</h1><p>    正则表达式是由普通字符（括所有大写和小写字母、所有数字、所有标点符号和一些其他符号）以及特殊字符（称为”元字符”）组成的一种文字模式，它使用单个字符串来描述、匹配一系列匹配某个句法规则的字符串。</p>
+<h1 id="二、为什么使用正则表达式"><a href="#二、为什么使用正则表达式" class="headerlink" title="二、为什么使用正则表达式"></a>二、为什么使用正则表达式</h1><p>    通过使用正则表达式，可以：<br>        1. 测试字符串内的模式。可以通过正则表达式进行数据验证。<br>        2. 替换文本。可以使用正则表达式来识别文档中的特定文本，完全删除该文本或者用其他文本替换它。<br>        3. 基于模式匹配从字符串中提取子字符串。可以查找文档内或输入域内特定的文本。</p>
+<h1 id="三、正则表达式的使用"><a href="#三、正则表达式的使用" class="headerlink" title="三、正则表达式的使用"></a>三、正则表达式的使用</h1><h2 id="1-普通字符"><a href="#1-普通字符" class="headerlink" title="1.普通字符"></a>1.普通字符</h2><p>    普通字符包括没有显式指定为元字符的所有可打印和不可打印字符。这包括所有大写和小写字母、所有数字、所有标点符号和一些其他符号。</p>
+<h2 id="2-非打印字符"><a href="#2-非打印字符" class="headerlink" title="2.非打印字符"></a>2.非打印字符</h2><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>\cx</td>
+<td>匹配由x指明的控制字符。</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>匹配一个换页符。</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>匹配一个换行符。</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>匹配一个回车符。</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何空白字符，包括空格、制表符、换页符等等。</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何非空白字符。</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>匹配一个制表符。</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>匹配一个垂直制表符。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-特殊字符"><a href="#3-特殊字符" class="headerlink" title="3.特殊字符"></a>3.特殊字符</h2><h3 id="限定符"><a href="#限定符" class="headerlink" title="限定符"></a>限定符</h3><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td>匹配前面的子表达式零次或多次。</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次。</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>n 是一个非负整数。匹配确定的 n 次。</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>n 是一个非负整数。至少匹配n 次。</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>m 和 n 均为非负整数，其中n &lt;= m。最少匹配 n 次且最多匹配 m 次。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="定位符"><a href="#定位符" class="headerlink" title="定位符"></a>定位符</h3><table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>^</td>
+<td>匹配输入字符串开始的位置。如果设置了 RegExp 对象的 Multiline 属性，^ 还会与 \n 或 \r 之后的位置匹配。</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入字符串结尾的位置。如果设置了 RegExp 对象的 Multiline 属性，$ 还会与 \n 或 \r 之前的位置匹配。</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个字边界，即字与空格间的位置。</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>非字边界匹配。</td>
+</tr>
+</tbody>
+</table>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="http://www.wangjiechang.me/2017/05/18/Vagrant-Docker/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -289,7 +738,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/18/Vagrant-Docker/" itemprop="url">Vagrant & Docker</a></h1>
+                <a class="post-title-link" href="/2017/05/18/Vagrant-Docker/" itemprop="url">Vagrant-Docker</a></h1>
         
 
         <div class="post-meta">
@@ -341,7 +790,7 @@
 
           
           
-             <span id="/2017/05/18/Vagrant-Docker/" class="leancloud_visitors" data-flag-title="Vagrant & Docker">
+             <span id="/2017/05/18/Vagrant-Docker/" class="leancloud_visitors" data-flag-title="Vagrant-Docker">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -452,7 +901,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T00:08:46+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-12T00:51:40+08:00">
                 2017-05-12
               </time>
             
@@ -475,8 +924,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活/" itemprop="url" rel="index">
-                    <span itemprop="name">生活</span>
+                  <a href="/categories/随笔/" itemprop="url" rel="index">
+                    <span itemprop="name">随笔</span>
                   </a>
                 </span>
 
@@ -586,7 +1035,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2017/05/11/Hexo-NexT-GitHub搭建个人博客/" itemprop="url">Hexo + NexT + GitHub搭建个人博客</a></h1>
+                <a class="post-title-link" href="/2017/05/11/Hexo-NexT-GitHub搭建个人博客/" itemprop="url">Hexo-NexT-GitHub搭建个人博客</a></h1>
         
 
         <div class="post-meta">
@@ -598,7 +1047,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-11T16:20:27+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-11T20:49:45+08:00">
                 2017-05-11
               </time>
             
@@ -638,7 +1087,7 @@
 
           
           
-             <span id="/2017/05/11/Hexo-NexT-GitHub搭建个人博客/" class="leancloud_visitors" data-flag-title="Hexo + NexT + GitHub搭建个人博客">
+             <span id="/2017/05/11/Hexo-NexT-GitHub搭建个人博客/" class="leancloud_visitors" data-flag-title="Hexo-NexT-GitHub搭建个人博客">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -763,7 +1212,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -785,7 +1234,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
